@@ -1,17 +1,33 @@
 import { NextResponse } from "next/server";
-import { signup } from 'email-armor'
+import { signUpVerify, signup } from 'email-armor'
 
 export async function POST(request) {
 
-    const data = await request.json();
-    console.log(data);
+    const userAgent = request.headers.get('user-agent');
 
-    const signUpUser = await signup(data.fullName, data.userName, data.userEmail, data.password, data.referredBy)
-    console.log(signUpUser);
+    const { fullName, userName, userEmail, password, referredBy } = await request.json();
+
+    const signUpUser = await signup(fullName, userName, userEmail, password, referredBy, userAgent)
 
     return NextResponse.json(
         {
-            msg: "hi"
+            statusCode: signUpUser.status,
+            message: signUpUser.message
+        },
+        { status: 200 }
+    );
+}
+
+export async function PUT(request) {
+
+    const { userName, otp } = await request.json();
+
+    const signUpUser = await signUpVerify(userName, otp);
+
+    return NextResponse.json(
+        {
+            statusCode: signUpUser.status,
+            message: signUpUser.message
         },
         { status: 200 }
     );
