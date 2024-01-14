@@ -3,6 +3,7 @@ import React from 'react'
 
 import axios from "axios"
 import { useState } from "react"
+import Link from 'next/link'
 
 const SignInpage = () => {
     const [userName, setuserName] = useState('priyalcoc2')
@@ -43,6 +44,13 @@ const SignInpage = () => {
         }
     }
 
+    async function resendOTP() {
+        const response = await axios.post('/api/resend', { userName, type: 'oldUserVerification' });
+
+        const message = response.data.message;
+
+        seterrorMessage(message);
+    }
 
     return (
         <>
@@ -51,15 +59,17 @@ const SignInpage = () => {
                     <p>Sign IN</p>
                     <p><input value={userName} onChange={(e) => setuserName(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='user name' type="text" /></p>
                     <p><input value={password} onChange={(e) => setpassword(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='password' type="password" /></p>
-                    <p className='text-red-600'>{errorMessage}</p>
+                    {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
                     <button onClick={signIn} className="text-left cursor-pointer">submit</button>
+                    <Link href={'/forgotPassword'} className="text-left cursor-pointer">forgot password</Link>
                 </div>
                 :
                 <div className='flex flex-col gap-4 mt-4 ml-8'>
                     <p>Sign IN Verify</p>
                     <p><input value={userName} onChange={(e) => setuserName(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='user name' type="text" readOnly={true} /></p>
                     <p><input value={otp} onChange={(e) => setotp(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='otp' type="otp" /></p>
-                    <p className='text-red-600'>{errorMessage}</p>
+                    {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
+                    <button onClick={resendOTP} className="text-left cursor-pointer">resend OTP</button>
                     <button onClick={signInVerify} className="text-left cursor-pointer">submit</button>
                 </div>
             }

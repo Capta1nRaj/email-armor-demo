@@ -8,10 +8,20 @@ export async function GET(request) {
 
     const userAgent = request.headers.get('user-agent');
 
-    const userName = cookies().get('userName').value;
-    const jwtToken = cookies().get('jwtToken').value;
+    const userName = cookies().get('userName');
+    const jwtToken = cookies().get('jwtToken');
 
-    const response = await sessionCheck(userName, jwtToken, userAgent);
+    if (!userName || !jwtToken) {
+        return NextResponse.json(
+            {
+                status: 404,
+                message: "Session doesn't exist.",
+            },
+            { status: 200 }
+        );
+    }
+
+    const response = await sessionCheck(userName.value, jwtToken.value, userAgent);
 
     return NextResponse.json(
         {

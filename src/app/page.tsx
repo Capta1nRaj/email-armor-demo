@@ -20,7 +20,7 @@ export default function Home() {
       setuserName(userName)
       return;
     } else {
-      router.push('/signIp')
+      router.push('/signIn')
     }
 
   }

@@ -46,6 +46,13 @@ const SignUpPage = () => {
         }
     }
 
+    async function resendOTP() {
+        const response = await axios.post('/api/resend', { userName, type: 'newUserVerification' });
+
+        const message = response.data.message;
+
+        seterrorMessage(message);
+    }
 
     return (
         <>
@@ -57,7 +64,7 @@ const SignUpPage = () => {
                     <p><input value={userEmail} onChange={(e) => setuserEmail(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='user email' type="text" /></p>
                     <p><input value={password} onChange={(e) => setpassword(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='password' type="password" /></p>
                     <p><input value={referredBy} onChange={(e) => setreferredBy(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='referred by' type="password" /></p>
-                    <p className='text-red-600'>{errorMessage}</p>
+                    {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
                     <button onClick={signUP} className="text-left cursor-pointer">submit</button>
                 </div>
                 :
@@ -65,7 +72,8 @@ const SignUpPage = () => {
                     <p>Sign UP Verify</p>
                     <p><input value={userName} onChange={(e) => setuserName(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='user name' type="text" readOnly={true} /></p>
                     <p><input value={otp} onChange={(e) => setotp(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='otp' type="otp" /></p>
-                    <p className='text-red-600'>{errorMessage}</p>
+                    {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
+                    <button onClick={resendOTP} className="text-left cursor-pointer">resend OTP</button>
                     <button onClick={signUPVerify} className="text-left cursor-pointer">submit</button>
                 </div>
             }
