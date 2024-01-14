@@ -1,18 +1,23 @@
 import { NextResponse } from "next/server";
 import { sessionCheck } from 'email-armor'
+import { cookies } from 'next/headers'
 
-export async function POST(request) {
+export async function GET(request) {
+
+    console.clear();
 
     const userAgent = request.headers.get('user-agent');
 
-    const { fullName, userName, userEmail, password, referredBy } = await request.json();
+    const userName = cookies().get('userName').value;
+    const jwtToken = cookies().get('jwtToken').value;
 
-    const sessionCheck = await sessionCheck(fullName, userName, userEmail, password, referredBy, userAgent)
+    const response = await sessionCheck(userName, jwtToken, userAgent);
 
     return NextResponse.json(
         {
-            statusCode: sessionCheck.status,
-            message: sessionCheck.message
+            statusCode: response.status,
+            message: response.message,
+            userName: response.userName
         },
         { status: 200 }
     );
