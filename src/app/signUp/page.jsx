@@ -3,6 +3,7 @@ import React from 'react'
 
 import axios from "axios"
 import { useState } from "react"
+import Link from 'next/link'
 
 const SignUpPage = () => {
     const [fullName, setfullName] = useState('Priyal Raj')
@@ -66,6 +67,7 @@ const SignUpPage = () => {
                     <p><input value={referredBy} onChange={(e) => setreferredBy(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='referred by' type="password" /></p>
                     {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
                     <button onClick={signUP} className="text-left cursor-pointer">submit</button>
+                    <Link href="/signIn">Sign IN</Link>
                 </div>
                 :
                 <div className='flex flex-col gap-4 mt-4 ml-8'>
