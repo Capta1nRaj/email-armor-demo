@@ -1,101 +1,39 @@
-'use client'
-import React from 'react'
+import Link from "next/link"
 
-import axios from "axios"
-import { useState } from "react"
-import Link from 'next/link'
 
-const SignInpage = () => {
-    const [userName, setuserName] = useState('priyalcoc2')
-    const [password, setpassword] = useState('priyalcoc2')
-    const [otp, setotp] = useState('');
-
-    const [signInScene, setsignInScene] = useState(false);
-    const [signUpVerifyScene, setsignUpVerifyScene] = useState(false);
-
-    const [errorMessage, seterrorMessage] = useState('');
-
-    async function signIn() {
-        const data = { userName, password }
-        const response = await axios.post('/api/signIn', data)
-
-        const message = response.data.message;
-        const statusCode = response.data.statusCode;
-
-        if (statusCode === 201) {
-            setsignInScene(true);
-        } else if (statusCode === 401) {
-            setsignUpVerifyScene(true);
-        }
-        seterrorMessage(message);
-    }
-
-    async function signInVerify() {
-        const data = { userName, otp }
-        const response = await axios.put('/api/signIn', data)
-
-        const message = response.data.message;
-        const statusCode = response.data.statusCode;
-
-        if (statusCode === 202) {
-            window.location.href = '/';
-            return;
-        } else {
-            seterrorMessage(message);
-        }
-    }
-
-    async function signUpVerify() {
-        const data = { userName, otp }
-        const response = await axios.put('/api/signUp', data)
-
-        const message = response.data.message;
-        const statusCode = response.data.statusCode;
-
-        if (statusCode === 202) {
-            window.location.href = '/';
-            return;
-        } else {
-            seterrorMessage(message);
-        }
-    }
-
-    async function resendOTP() {
-        const response = await axios.post('/api/resend', { userName, type: 'oldUserVerification' });
-
-        const message = response.data.message;
-
-        seterrorMessage(message);
-    }
-
+const signInPage = () => {
     return (
         <>
-            {(!signInScene && !signUpVerifyScene) ?
-                <div className='flex flex-col gap-4 mt-4 ml-8'>
-                    <p>Sign IN</p>
-                    <p><input value={userName} onChange={(e) => setuserName(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='user name' type="text" /></p>
-                    <p><input value={password} onChange={(e) => setpassword(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='password' type="password" /></p>
-                    {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
-                    <button onClick={signIn} className="text-left cursor-pointer">submit</button>
-                    <Link href={'/forgotPassword'} className="text-left cursor-pointer">forgot password</Link>
-                    <Link href="/signUp">Sign UP</Link>
+            <section className="bg-gray-50 dark:bg-gray-900">
+                <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                    <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                                Sign in to your account
+                            </h1>
+                            <form className="space-y-4 md:space-y-6" action="#">
+                                <div>
+                                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                                    <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
+                                </div>
+                                <div>
+                                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                    <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                                </div>
+                                <div className="flex items-center justify-end">
+                                    <Link href="/forgotPassword" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</Link>
+                                </div>
+                                <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+                                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                                    Don`t have an account yet? <Link href="/signUp" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                :
-                <div className='flex flex-col gap-4 mt-4 ml-8'>
-                    <p>Sign {signUpVerifyScene ? "UP" : "IN"} Verify</p>
-                    <p><input value={userName} onChange={(e) => setuserName(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='user name' type="text" readOnly={true} /></p>
-                    <p><input value={otp} onChange={(e) => setotp(e.target.value)} className='text-black pl-2 py-2 placeholder:text-black' placeholder='otp' type="otp" /></p>
-                    {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
-                    <button onClick={resendOTP} className="text-left cursor-pointer">resend OTP</button>
-                    {signUpVerifyScene ?
-                        <button onClick={signUpVerify} className="text-left cursor-pointer">submit</button>
-                        :
-                        <button onClick={signInVerify} className="text-left cursor-pointer">submit</button>
-                    }
-                </div>
-            }
+            </section>
         </>
     )
 }
 
-export default SignInpage
+export default signInPage
