@@ -61,7 +61,7 @@ const SignInPage = () => {
         const data = { username: formData.username, method: 'forgotPassword' };
 
         try {
-            const { data: { message } } = await axios.patch('/api/forgotPassword', data);
+            const { data: { message } } = await axios.post('/api/resendOTP', data);
 
             setmessage(message);
 

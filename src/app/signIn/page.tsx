@@ -97,10 +97,10 @@ const SignInPage = () => {
     }
 
     const resendOTP = async () => {
-        const data = { username: formData.username, method: statusCode === 201 ? 'oldUserVerification' : 'newUserVerification' };
+        const data = { userName: formData.username, method: statusCode === 201 ? 'oldUserVerification' : 'newUserVerification' };
 
         try {
-            const { data: { message } } = await axios.patch('/api/signInAPI', data);
+            const { data: { message } } = await axios.post('/api/resendOTP', data);
 
             setmessage(message);
 

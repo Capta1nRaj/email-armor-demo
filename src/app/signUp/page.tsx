@@ -98,8 +98,11 @@ const SignUpPage = () => {
     }
 
     const resendOTP = async () => {
+
+        const data = { userName: formData.userName, method: 'newUserVerification' }
+
         try {
-            const { data: { message } } = await axios.patch('/api/signUpAPI', { userName: formData.userName });
+            const { data: { message } } = await axios.post('/api/resendOTP', data);
 
             setmessage(message);
 

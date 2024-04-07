@@ -54,31 +54,3 @@ export async function PUT(request: NextRequest) {
         { status: 200 }
     );
 }
-
-export async function PATCH(request: NextRequest) {
-
-    const userAgent = request.headers.get('user-agent');
-    const userIP = await fetchUserIP();
-
-    const { userName } = await request.json();
-
-    //@ts-ignore
-    const response = await resendOTP(userName, 'newUserVerification', userAgent, '', userIP);
-
-    if (!response) {
-        return NextResponse.json(
-            {
-                message: "Internal Server Error",
-                status: 500
-            },
-            { status: 200 }
-        );
-    }
-
-    const { message, status } = response;
-
-    return NextResponse.json(
-        { status, message },
-        { status: 200 }
-    );
-}
