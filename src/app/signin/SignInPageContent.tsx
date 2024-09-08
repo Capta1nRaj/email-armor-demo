@@ -97,6 +97,10 @@ export default function SignIn() {
                             </div>
                         </div>
 
+                        <div className="flex items-center justify-end">
+                            <Link href="/forgotPassword" className="text-sm font-medium text-primary-600 hover:underline text-primary-500">Forgot password?</Link>
+                        </div>
+
                         <div>
                             <button type="submit" className="flex w-full justify-center rounded-md bg-[#FE1F06]/60 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#FE1F06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FE1F06] uppercase defaultTransitionCSS">
                                 Sign in
