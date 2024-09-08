@@ -22,12 +22,13 @@ const SideBarAndTopBarLayout = ({ children }: { children: ReactNode }) => {
                 const { isLoggedIn } = await checkSession();
 
                 // If the user is not logged in, redirect to the sign-in page
-                if (!isLoggedIn) {
-                    return router.push(process.env.NEXT_PUBLIC_DOMAIN_NAME_1 + '/signin' || "http://localhost:3000/signin");
-                }
+                if (!isLoggedIn) { return router.push(process.env.NEXT_PUBLIC_DOMAIN_NAME_1 + '/signin' || "http://localhost:3000/signin"); }
 
                 // If the user is on the root or dashboard path, redirect to the dashboard
-                if (pathname === '/' || pathname === '/dashboard') { router.push(process.env.NEXT_PUBLIC_DOMAIN_NAME_1 + '/dashboard'); }
+                if (pathname === '/' || pathname === '/dashboard' || pathname === '/signin' || pathname === '/signup' || pathname === '/forgotPassword') {
+                    router.push(process.env.NEXT_PUBLIC_DOMAIN_NAME_1 + '/dashboard');
+                }
+
             } catch (error) {
                 // Handle any errors that occur during session checking and redirect to the home page
                 console.error('Error occurred while checking session:', error);
