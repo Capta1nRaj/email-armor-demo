@@ -5,7 +5,7 @@ import axios from "axios";
 const logoutUser = async () => {
     //! Fetching cookies list
     const cookies = GetCookiesList();
-    await axios.get('/api/EmailArmorAPIs/logout', { headers: { 'Content-Type': 'application/json', userName: cookies.userName, token: cookies.token, id: cookies.id } });
+    await axios.get('/api/logoutAPI', { headers: { 'Content-Type': 'application/json', userName: cookies.userName, token: cookies.token, id: cookies.id } });
     window.location.href = process.env.NEXT_PUBLIC_DOMAIN_NAME_1 || "http://localhost:3000";
 };
 

@@ -4,7 +4,6 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -16,8 +15,6 @@ type SignInFormData = {
 const inputCSS = `block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-[#FE1F06] sm:text-sm sm:leading-6`;
 
 export default function SignIn() {
-
-    const router = useRouter();
 
     //! Initial input fields for sign-in
     const [formData, setFormData] = useState<SignInFormData>({
@@ -53,7 +50,7 @@ export default function SignIn() {
                 // Display a success message to inform the user of successful login.
                 toast.success(message);
                 // Redirect the user to the dashboard page after a successful action.
-                return setTimeout(() => { router.push('/dashboard'); }, 1000);
+                return setTimeout(() => { window.location.href = '/dashboard'; }, 1000);
 
             }
 
@@ -69,7 +66,7 @@ export default function SignIn() {
 
     return (
         <>
-            <div className="flex flex-col min-h-screen items-center justify-center px-6 py-12 lg:px-8">
+            <div className="flex flex-col min-h-[80vh] items-center justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <Image width={110} height={110} alt="Your Company" src="https://raw.githubusercontent.com/Capta1nRaj/email-armor/main/email-armor.png" className="mx-auto h-20 w-auto" />
                     <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-white">

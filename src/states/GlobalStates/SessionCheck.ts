@@ -22,7 +22,7 @@ export const SessionCheck = create<SessionState & SessionActions>((set) => ({
             //! Fetching cookies list
             const cookies = GetCookiesList();
 
-            const { data: { status, userName, userRole } } = await axios.get('/api/EmailArmorAPIs/localSessionCheck', {
+            const { data: { status, userName, userRole } } = await axios.get('/api/localSessionCheck', {
                 headers: {
                     'Content-Type': 'application/json',
                     userName: cookies.userName,

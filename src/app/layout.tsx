@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Toaster } from 'sonner'
 import "./globals.css";
+import SideBarAndTopBarLayout from "@/layout/SideBarAndTopBarLayout";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,7 +13,9 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
     <html lang="en">
       <body>
         <Toaster position="top-right" expand={true} richColors />
-        {children}
+        <SideBarAndTopBarLayout>
+          {children}
+        </SideBarAndTopBarLayout>
       </body>
     </html>
   );

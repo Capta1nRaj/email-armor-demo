@@ -46,5 +46,5 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
     await request.json();
-    return NextResponse.json({ message: "Just A POST Call In /api/EmailArmorAPIs/localSessionCheck." }, { status: 200 });
+    return NextResponse.json({ message: "Just A POST Call In /api/localSessionCheck." }, { status: 200 });
 }

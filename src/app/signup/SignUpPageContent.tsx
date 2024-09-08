@@ -86,7 +86,7 @@ export default function Example() {
 
     return (
         <>
-            <div className="flex flex-col min-h-screen items-center justify-center px-6 py-12 lg:px-8">
+            <div className="flex flex-col min-h-[80vh] items-center justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <Image width={110} height={110} alt="Your Company" src="https://raw.githubusercontent.com/Capta1nRaj/email-armor/main/email-armor.png" className="mx-auto h-20 w-auto" />
                     <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-white">
