@@ -4,7 +4,7 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -21,7 +21,6 @@ const inputCSS = `block w-full rounded-md border-0 bg-white/5 py-1.5 text-white 
 
 export default function Example() {
 
-    const router = useRouter();
     const searchParams = useSearchParams();
     const referral = searchParams.get('referral');
 
@@ -71,7 +70,9 @@ export default function Example() {
                 // Display a success message to inform the user of successful registration/login.
                 toast.success(message);
                 // Redirect the user to the dashboard page after a successful action.
-                return setTimeout(() => { router.push('/dashboard'); }, 1000);
+                return setTimeout(() => {
+                    window.location.href = `${process.env.NEXT_PUBLIC_DOMAIN_NAME_1}/dashboard`;
+                }, 1000);
             }
 
             // If the response indicates an error, display the error message to the user.
