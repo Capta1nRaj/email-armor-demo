@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { signUp } from 'email-armor'
-import { cookies } from 'next/headers'
+import { signUp } from 'email-armor';
+import { cookies } from 'next/headers';
 
 const expireIn365Days = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
 
