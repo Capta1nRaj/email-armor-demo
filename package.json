@@ -6,22 +6,34 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "devSync": "git checkout v1.0.0 && git reset --hard origin/main && git push --force && git pull origin main && git push",
+    "mainSync": "git checkout main && git pull origin v1.0.0 && git push && git checkout v1.0.0",
+    "devSoftReset": "git checkout v1.0.0 && git reset --soft HEAD~2 && git commit -m \"Tested successfully with version v1.0.0\" && git push --force",
+    "mainSoftReset": "git checkout main && git reset --soft HEAD~2 && git commit -m \"MicrosoftClarity code updated\" && git push --force && git checkout v1.0.0 && git reset --hard origin/main && git push --force",
+    "devHardReset": "git checkout v1.0.0 && git reset --hard origin/main && git push --force && git pull origin main && git push",
+    "mainHardReset": "git checkout main && git reset --hard origin/v1.0.0 && git push --force && git checkout v1.0.0",
+    "devVercel": "git checkout v1.0.0 && vercel --force && git checkout v1.0.0",
+    "mainVercel": "git checkout main && vercel --force --prod && git checkout v1.0.0"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.9",
+    "axios": "^1.7.7",
+    "email-armor": "^1.0.0",
+    "next": "14.2.8",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.0.3"
+    "sonner": "^1.5.0",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
     "eslint": "^8",
-    "eslint-config-next": "14.0.3"
+    "eslint-config-next": "14.2.8",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
