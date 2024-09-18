@@ -20,7 +20,7 @@
     "@tailwindcss/forms": "^0.5.9",
     "axios": "^1.7.7",
     "email-armor": "^1.0.0",
-    "next": "14.2.8",
+    "next": "14.2.10",
     "react": "^18",
     "react-dom": "^18",
     "sonner": "^1.5.0",
